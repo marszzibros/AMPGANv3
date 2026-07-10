@@ -1,0 +1,21 @@
+You have already iterated on the task. Below is the exact instruction that was sent:
+
+{Instruction}
+
+You have returned the following execution reports:
+
+{Reports}
+
+Analyze these reports against the original requirements.
+
+Decision Logic:
+- If the outputs meet expectations and are sufficient to proceed, generate the next step(s) in the workflow.
+- If the outputs are incomplete, low-quality, or misaligned with requirements, issue a revised instruction with clearer or stricter constraints.
+
+Requirements:
+1. Make a clear, decisive determination (no ambiguity).
+2. Prioritize forward progress while ensuring output quality.
+3. Avoid repeating identical instructions unless refinement is explicitly needed.
+4. Adjust constraints, parameters, or tool usage where necessary to improve results.
+
+Output only the next actionable instruction or step(s), aligned with the workflow.

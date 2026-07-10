@@ -1,0 +1,46 @@
+{
+    "name": "Filtering",
+    "description": "Responsible for high-precision quality control and selection of Antimicrobial Peptides (AMPs). This agent evaluates physical, chemical, and structural properties to refine a raw sequence pool into a curated list of high-potential lead candidates.",
+    "tools": [
+        {
+            "tool": "Cation_Filter",
+            "description": "Evaluates net charge to ensure sequences have sufficient cationic character for bacterial membrane attraction. This tool identifies sequences within the [min, max] range and records the result in the 'cationicity_filter' column.",
+            "input": "min_cationicity (float), max_cationicity (float), folder_path (path to output folder)"
+        },
+        {
+            "tool": "Hydrophobicity_Filter",
+            "description": "Calculates the GRAVY score to balance membrane insertion capability with solubility. This tool filters sequences based on the provided [min, max] range and populates the 'hydrophobicity_filter' column.",
+            "input": "min_hydrophobicity (float), max_hydrophobicity (float), folder_path (path to output folder)"
+        },
+        {
+            "tool": "Length_Filter",
+            "description": "Screens sequences by amino acid count to ensure structural stability and synthesis feasibility. This tool filters sequences within the [min, max] range and records the outcome in the 'length_filter' column.",
+            "input": "min_length (int), max_length (int), folder_path (path to output folder)"
+        },
+        {
+            "tool": "Structure_Filter",
+            "description": "Primary Structural Analysis Tool. Requires existing 3D structural data (PDB) to run; this tool does NOT perform folding or structure prediction. Classifies peptides based on 3D data into: [1: Mixed, 2: Alpha-Helical, 3: Beta-Hairpin, 4: Extended Beta-Strand, 5: Structured Turns, 6: Unstructured]. The 'structure' input must be a STRING of one or more IDs separated by semicolons (e.g., '2' or '2;3;5'). Sets 'structure_filter' to True if the peptide matches any of the provided IDs and saves the specific class name to 'structure_classification'.",
+            "input": "folder_path (path to output folder), structure (string: semicolon-separated IDs e.g. '1;2')"
+        },
+        {
+            "tool": "Damino_Filter",
+            "description": "Check if there is any small letter in the sequence, which represents D-Amino acids. This tool filters sequences and records the result in the 'damino_filter' column. Call when user wants to include D-Amino Acids", 
+            "input": "folder_path (path to output folder)"
+        },
+        {
+            "tool": "Lamino_Filter",
+            "description": "Check if the sequence ONLY includes uppercase letters in the sequence. This tool filters sequences and records the result in the 'lamino_filter' column. Call when user does not want a D-Amino Acids", 
+            "input": "folder_path (path to output folder)"
+        },
+        {
+            "tool": "Filter_Status",
+            "description": "Mandatory Reporting Tool. USE THIS TOOL WHENEVER you call any filtering tool to report the current status of the pipeline or verify the count of sequences. It provides the final integer count of surviving candidates. This tool is essential for monitoring the attrition rate and ensuring data integrity throughout the filtering process.",
+            "input": "folder_path (path to output folder)"
+        }
+    ],
+    "context": [
+        "This filtering process serves as the final quality control checkpoint for evaluating generated sequences.",
+        "Operational Priority: Execute fundamental property checks (such as charge, hydrophobicity, and length) as preliminary screens prior to conducting advanced or intensive structural classifications.",
+        "Verification Rule: Every filtering cycle must conclude by invoking the status reporting tool to verify data integrity and output the official count of surviving candidates."
+    ]
+}

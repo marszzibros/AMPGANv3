@@ -1,0 +1,14 @@
+You have already issued instructions to the {Agent} Agent. Below is the exact instruction that was sent:
+
+{Instruction}
+
+The {Agent} Agent has returned the following reports:
+
+{Reports}
+
+Analyze these reports in the context of the original requirements. 
+
+If the outputs meet expectations and are ready to proceed to the next agent, invoke the next Agent.
+If the outputs are incomplete, low-quality, or require refinement, issue a same or new instruction to the {Agent} Agent for improved or adjusted constraints.
+
+Make a clear decision on the next step in the workflow.
