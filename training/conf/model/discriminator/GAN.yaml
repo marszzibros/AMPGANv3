@@ -1,0 +1,9 @@
+names: D_GAN
+classes: 2
+d_model: 64
+d_hid: 256
+nlayers: 4
+nhead: 4
+dropout: 0.2
+n_conditions: 0
+

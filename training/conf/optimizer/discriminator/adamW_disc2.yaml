@@ -1,0 +1,3 @@
+name: "adamW_disc2"
+lr: 1e-04
+betas: [0.5, 0.999]

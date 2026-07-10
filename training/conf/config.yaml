@@ -1,0 +1,17 @@
+defaults:
+  - _self_
+  - model/generator: default
+  - model/discriminator@GAN: GAN
+  - model/discriminator@MIC: MIC
+  - optimizer/generator: adamW
+  - optimizer/discriminator@disc1: adamW_disc1
+  - optimizer/discriminator@disc2: adamW_disc2
+
+trainer:
+  max_epochs: 201
+
+latent_dim: 256
+max_length: 68
+batch_size: 256
+data_path: "/gpfs1/home/j/j/jjung2/scratch/AMPGANv3/training/data"
+run: 1
