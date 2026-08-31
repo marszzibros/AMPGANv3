@@ -7,6 +7,15 @@ import random
 from inference import *
 import sys
 import os
+from pathlib import Path
+
+# repo root: training/generate_samples.py -> AMPGANv3/
+REPO_ROOT = Path(__file__).resolve().parents[1]
+# Checkpoint dir: defaults to the released weights/, override with AMPGAN_CKPT_DIR
+# (e.g. point it at training/logs/Generator to sample your own training runs).
+CKPT_DIR = Path(os.environ.get("AMPGAN_CKPT_DIR", REPO_ROOT / "weights"))
+# Released checkpoint is run 7 @ epoch 200; override the epoch with AMPGAN_CKPT_EPOCH.
+CKPT_EPOCH = os.environ.get("AMPGAN_CKPT_EPOCH", "200")
 
 os.system("mkdir test/")
 os.system(f"mkdir test/{sys.argv[1]}")
@@ -27,11 +36,11 @@ def generate_samples(input_data: dict) -> str:
     BS = 256
     latent_size = 256
     
-    dataset = AMPDatasets(max_length=68, data_path="/gpfs1/home/j/j/jjung2/scratch/AMPGANv3/training/data")
+    dataset = AMPDatasets(max_length=68, data_path=str(REPO_ROOT / "training" / "data"))
     
     # load trained model
     model = Generator(output_shape=(68, len(dataset.tokens)), species_shape=(6,), embed_dim=128).to(DEVICE)
-    state_dict = torch.load(f"/gpfs1/home/j/j/jjung2/scratch/AMPGANv3/training/logs/Generator/Generator_{sys.argv[1]}_100.pth", weights_only=True)
+    state_dict = torch.load(CKPT_DIR / f"Generator_{sys.argv[1]}_{CKPT_EPOCH}.pth", map_location=DEVICE, weights_only=True)
     model.load_state_dict(state_dict)
     model.eval()
 

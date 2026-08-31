@@ -7,6 +7,10 @@ import random
 # from inference import *
 import sys
 import os
+from pathlib import Path
+
+# repo root: pepcraft/tools/Generating/AMPGAN_v3.py -> AMPGANv3/
+REPO_ROOT = Path(__file__).resolve().parents[3]
 
 
 species_dict = {"ecoli": 0,
@@ -481,11 +485,11 @@ def AMPGAN_v3(input_data: dict) -> str:
     BS = 256
     latent_size = 256
     
-    dataset = AMPDatasets(max_length=68, data_path="/home/raymondlab/Documents/AMPGANv3/data")
+    dataset = AMPDatasets(max_length=68, data_path=str(REPO_ROOT / "training" / "data"))
     
     # load trained model
     model = Generator(output_shape=(68, len(dataset.tokens)), species_shape=(6,), embed_dim=128).to(DEVICE)
-    state_dict = torch.load(f"/home/raymondlab/Documents/AMPGANv3/Generator_7_200.pth", weights_only=True)
+    state_dict = torch.load(REPO_ROOT / "weights" / "Generator_7_200.pth", map_location=DEVICE, weights_only=True)
     model.load_state_dict(state_dict)
     model.eval()
 

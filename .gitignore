@@ -6,6 +6,8 @@ dist/
 wheels/
 *.egg-info
 *.pth
+# ...but the released AMPGAN v3 checkpoints are tracked
+!weights/*.pth
 # Virtual environments
 .venv
 
